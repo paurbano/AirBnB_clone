@@ -71,10 +71,10 @@ class HBNBCommand(cmd.Cmd):
         else:
             dic = models.storage.all()
             for i in dic.values():
-                if i.__class__.__name__ == tokensD[0] and i.id == tokensD[1]
-                del i
-                models.storage.save()
-                return
+                if i.__class__.__name__ == tokensD[0] and i.id == tokensD[1]:
+                    del i
+                    models.storage.save()
+                    return
             print("** instance id missing **")
             models.storage.save()
 
@@ -84,42 +84,49 @@ class HBNBCommand(cmd.Cmd):
         listI = []
         dic = models.storage.all()
         if len(tokensA) == 0:
-            for key, value in dic.items():
-                listI.append(j)
-        print(listI)
+            for key in dic:
+                listI.append(dic[key])
+            print(listI)
+            return
 
-    def do_update(self, argument)
-    |"""Updates an instance based on the class name and id """
-    tokensU = shlex.split(argument)
-    if len(tokensU) == 0:
-        print("** class name missing **")
-        return
-    elif len(tokensU) == 1:
-        print("** instance id missing **")
-        return
-    elif len(tokensU) == 2:
-        print("** attribute name missing **")
-        return
-    elif len(tokensU) == 3:
-        print("** value missing **")
-        return
-    elif tokensU[0] not in models.classes:
-        print("** class doesn't exist **")
-        return
-    keyI = tokensU[0]+"."+tokensU[1]
-    dicI = models.storage.all()
-    try:
-        instanceU = dicI[keyI]
-    except KeyError:
-        print("** no instance found **")
-        return
-    try:
-        typeA = type(getattr(instanceU, tokensU[2]))
-        tokensU[3] = typeA(tokensU[3])
-    except AttributeError:
-        pass
-    setattr(instanceU, tokensU[2], tokensU[3])
-    models.storage.save
+
+        if listI:
+            print(listI)
+        else:
+            print("** class doesn't exist **")
+
+    def do_update(self, argument):
+        """Updates an instance based on the class name and id """
+        tokensU = shlex.split(argument)
+        if len(tokensU) == 0:
+            print("** class name missing **")
+            return
+        elif len(tokensU) == 1:
+            print("** instance id missing **")
+            return
+        elif len(tokensU) == 2:
+            print("** attribute name missing **")
+            return
+        elif len(tokensU) == 3:
+            print("** value missing **")
+            return
+        elif tokensU[0] not in models.classes:
+            print("** class doesn't exist **")
+            return
+        keyI = tokensU[0]+"."+tokensU[1]
+        dicI = models.storage.all()
+        try:
+            instanceU = dicI[keyI]
+        except KeyError:
+            print("** no instance found **")
+            return
+        try:
+            typeA = type(getattr(instanceU, tokensU[2]))
+            tokensU[3] = typeA(tokensU[3])
+        except AttributeError:
+            pass
+        setattr(instanceU, tokensU[2], tokensU[3])
+        models.storage.save
 
 
 if __name__ == '__main__':
