@@ -78,15 +78,16 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
             models.storage.save()
 
-    def do_all(self, argument)
+    def do_all(self, argument):
         """all string representation of all instances"""
         tokensA = shlex.split(argument)
         listI = []
         dic = models.storage.all()
         if len(tokensA) == 0:
-            for i, j in dic.items():
+            for key, value in dic.items():
                 listI.append(j)
         print(listI)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
