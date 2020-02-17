@@ -46,3 +46,7 @@ class BaseModel:
                                                     "%Y-%m-%dT%H:%M:%S.%f")
         self.__dict__['__class__'] = self.__class__.__name__
         return self.__dict__
+
+    @property
+    def id(self):
+        return self.id
