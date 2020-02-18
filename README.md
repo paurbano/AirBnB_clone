@@ -15,7 +15,7 @@ Do you remember the Shell? It’s exactly the same but limited to a specific use
 * Destroy an object
 
 # Execution
-Your shell should work like this in interactive mode:
+Your could work like this in interactive mode:
 
 	$ ./console.py
 	(hbnb) help
@@ -50,3 +50,46 @@ But also in non-interactive mode: (like the Shell project in C)
 	EOF  help  quit
 	(hbnb) 
 	$
+
+# Commands:
+* create - create an object
+* show - show an object (based on id)
+* destroy - destroy an object
+* all - show all objects, of one type or all types
+* quit/EOF - quit the console
+* help - see descriptions of commands
+
+To start console type in shell 
+	AirBnB_clone$ ./console.py
+	(hbnb) 
+
+## Create
+To create an object use format "create <ClassName>" ex:(hbnb) create BaseModel
+
+## Show
+To show an instance based on the class name and id. Ex: (hbnb) show BaseModel 1234-1234-1234.
+
+## Destroy
+To Delete an instance of an object use "destroy <ClassName> id". Ex: (hbnb) destroy BaseModel 1234-1234-1234.
+
+## All
+all or all <class name> Ex: (hbnb) all or all State
+
+## Quit
+quit or EOF
+
+## Help
+help or help <command> Ex: (hbnb) help or help quit
+
+# Supported classes:
+* BaseModel
+* User
+* State
+* City
+* Amenity
+* Place
+* Review
+
+# Authors
+* Aiko Mi - <1205@holbertonschool.com>
+* Pablo Andres Urbano - <1283@holbertonschool.com>
