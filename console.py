@@ -74,9 +74,9 @@ class HBNBCommand(cmd.Cmd):
             key = tokensD[0] + '.' + tokensD[1]
             if key in dic:
                 del dic[key]
-                models.storage.save()
             else:
                 print("** no instance found **")
+            models.storage.save()
             # for i in dic.values():
             #     if i.__class__.__name__ == tokensD[0] and i.id == tokensD[1]:
             #         del i
@@ -93,20 +93,27 @@ class HBNBCommand(cmd.Cmd):
         # show all if no class is passed
         if len(tokensA) == 0:
             for key in dic:
-                listI.append(dic[key])
-            print(listI)
-            return
+                representation_Class = str(dic[key])
+                listI.append(representation_Class)
+            if listI:
+                print(listI)
+                return
 
         if tokensA[0] not in models.classes:
             print("** class doesn't exist **")
             return
         else:
             # Representation for a specific class
+            representation_Class = ""
             for key in dic:
                 className = key.split('.')
                 if className[0] == tokensA[0]:
-                    listI.append(dic[key])
-            print(listI)
+                    # This form doesn't work
+                    # listI.append(dic[key])
+                    representation_Class = str(dic[key])
+                    listI.append(representation_Class)
+            if listI:
+                print(listI)
 
     def do_update(self, argument):
         """Updates an instance based on the class name and id """
