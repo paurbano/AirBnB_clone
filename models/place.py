@@ -16,8 +16,8 @@ class Place(BaseModel):
     price_by_night = 0
     latitude = 0.0
     longitude = 0.0
-    amenity_ids = ()  # list of string: it will be the list of Amenity.id
+    amenity_ids = []  # list of string: it will be the list of Amenity.id
 
     def __init__(self, *args, **kwargs):
         """ Constructor """
-        super.__init__(self, *args, **kwargs)
+        super().__init__(self, *args, **kwargs)
