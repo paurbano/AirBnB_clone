@@ -48,8 +48,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         else:
             dic = models.storage.all()
-            # pending
-            keyU = str(tokens[1])
+            # Key has format <className>.id
+            keyU = tokens[0] + '.' + str(tokens[1])
             if keyU in dic:
                 print(dic[keyU])
             else:
@@ -70,30 +70,43 @@ class HBNBCommand(cmd.Cmd):
             return
         else:
             dic = models.storage.all()
-            for i in dic.values():
-                if i.__class__.__name__ == tokensD[0] and i.id == tokensD[1]:
-                    del i
-                    models.storage.save()
-                    return
-            print("** instance id missing **")
-            models.storage.save()
+            # Key has format <className>.id
+            key = tokensD[0] + '.' + tokensD[1]
+            if key in dic:
+                del dic[key]
+                models.storage.save()
+            else:
+                print("** no instance found **")
+            # for i in dic.values():
+            #     if i.__class__.__name__ == tokensD[0] and i.id == tokensD[1]:
+            #         del i
+            #         models.storage.save()
+            #         return
+            # print("** instance id missing **")
+            # models.storage.save()
 
     def do_all(self, argument):
         """all string representation of all instances"""
         tokensA = shlex.split(argument)
         listI = []
         dic = models.storage.all()
+        # show all if no class is passed
         if len(tokensA) == 0:
             for key in dic:
                 listI.append(dic[key])
             print(listI)
             return
 
-
-        if listI:
-            print(listI)
-        else:
+        if tokensA[0] not in models.classes:
             print("** class doesn't exist **")
+            return
+        else:
+            # Representation for a specific class
+            for key in dic:
+                className = key.split('.')
+                if className[0] == tokensA[0]:
+                    listI.append(dic[key])
+            print(listI)
 
     def do_update(self, argument):
         """Updates an instance based on the class name and id """
