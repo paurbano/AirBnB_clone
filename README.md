@@ -59,9 +59,10 @@ But also in non-interactive mode: (like the Shell project in C)
 * quit/EOF - quit the console
 * help - see descriptions of commands
 
-To start console type in shell 
-	AirBnB_clone$ ./console.py
-	(hbnb) 
+To start console type in shell
+
+    AirBnB_clone$ ./console.py
+    (hbnb) 
 
 ## Create
 To create an object use format "create <ClassName>" ex:(hbnb) create BaseModel
