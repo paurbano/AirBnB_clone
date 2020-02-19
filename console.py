@@ -19,6 +19,10 @@ class HBNBCommand(cmd.Cmd):
     """HBNB Class """
     prompt = '(hbnb) '
 
+    classes = {'BaseModel': BaseModel, 'Amenity': Amenity,
+               'State': State, 'Place': Place, 'Review': Review,
+               'User': User, 'City': City}
+
     def do_quit(self, argument):
         """ Defines quit option"""
         return True
@@ -35,7 +39,7 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, argument):
         """Creates an instance of BaseModel"""
         if argument:
-            if argument in models.classes:
+            if argument in self.classes:
                 # instance = models.base_model.BaseModel()
                 get_class = getattr(sys.modules[__name__], argument)
                 instance = get_class()
@@ -54,7 +58,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         elif len(tokens) == 1:
             print("** instance id missing **")
-        elif tokens[0] not in models.classes:
+        elif tokens[0] not in self.classes:
             print("** class doesn't exist **")
         else:
             dic = models.storage.all()
@@ -75,7 +79,7 @@ class HBNBCommand(cmd.Cmd):
         elif len(tokensD) == 1:
             print("** instance id missing **")
             return
-        elif tokensD[0] not in models.classes:
+        elif tokensD[0] not in self.classes:
             print("** class doesn't exist **")
             return
         else:
@@ -110,7 +114,7 @@ class HBNBCommand(cmd.Cmd):
             print(listI)
             return
 
-        if tokensA[0] not in models.classes:
+        if tokensA[0] not in self.classes:
             print("** class doesn't exist **")
             return
         else:
@@ -141,7 +145,7 @@ class HBNBCommand(cmd.Cmd):
         elif len(tokensU) == 3:
             print("** value missing **")
             return
-        elif tokensU[0] not in models.classes:
+        elif tokensU[0] not in self.classes:
             print("** class doesn't exist **")
             return
         keyI = tokensU[0] + "." + tokensU[1]
