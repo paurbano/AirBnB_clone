@@ -10,12 +10,19 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         """ Constructor """
         if kwargs:
-            self.__dict__ = kwargs
-            self.created_at = datetime.strptime(self.created_at,
-                                                "%Y-%m-%dT%H:%M:%S.%f")
+            # self.__dict__ = kwargs
+            # self.created_at = datetime.strptime(self.created_at,
+            #                                     "%Y-%m-%dT%H:%M:%S.%f")
 
-            self.updated_at = datetime.strptime(self.updated_at,
-                                                "%Y-%m-%dT%H:%M:%S.%f")
+            # self.updated_at = datetime.strptime(self.updated_at,
+            #                                     "%Y-%m-%dT%H:%M:%S.%f")
+            for key, value in kwargs.items():
+                if key == "created_at":
+                    value = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
+                if key == "updated_at":
+                    value = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
+                if key != "__class__":
+                    setattr(self, key, value)
         else:
             self.id = str(uuid.uuid4())  # unique id
             self.created_at = datetime.now()  # datetime when is created
