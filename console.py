@@ -3,13 +3,25 @@
 Module Console
 """
 import cmd
-import models
 import shlex
+import sys
+import models
+from models.base_model import BaseModel
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
     """HBNB Class """
     prompt = '(hbnb) '
+
+    classes = {'BaseModel': BaseModel, 'Amenity': Amenity,
+               'State': State, 'Place': Place, 'Review': Review,
+               'User': User, 'City': City}
 
     def do_quit(self, argument):
         """ Defines quit option"""
@@ -27,8 +39,10 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, argument):
         """Creates an instance of BaseModel"""
         if argument:
-            if argument in models.classes:
-                instance = models.base_model.BaseModel()
+            if argument in self.classes:
+                # instance = models.base_model.BaseModel()
+                get_class = getattr(sys.modules[__name__], argument)
+                instance = get_class()
                 print(instance.id)
                 models.storage.save()
             else:
@@ -44,7 +58,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         elif len(tokens) == 1:
             print("** instance id missing **")
-        elif tokens[0] not in models.classes:
+        elif tokens[0] not in self.classes:
             print("** class doesn't exist **")
         else:
             dic = models.storage.all()
@@ -65,7 +79,7 @@ class HBNBCommand(cmd.Cmd):
         elif len(tokensD) == 1:
             print("** instance id missing **")
             return
-        elif tokensD[0] not in models.classes:
+        elif tokensD[0] not in self.classes:
             print("** class doesn't exist **")
             return
         else:
@@ -74,9 +88,10 @@ class HBNBCommand(cmd.Cmd):
             key = tokensD[0] + '.' + tokensD[1]
             if key in dic:
                 del dic[key]
+                models.storage.save()
             else:
                 print("** no instance found **")
-            models.storage.save()
+
             # for i in dic.values():
             #     if i.__class__.__name__ == tokensD[0] and i.id == tokensD[1]:
             #         del i
@@ -95,11 +110,11 @@ class HBNBCommand(cmd.Cmd):
             for key in dic:
                 representation_Class = str(dic[key])
                 listI.append(representation_Class)
-            if listI:
-                print(listI)
-                return
+            # if listI:
+            print(listI)
+            return
 
-        if tokensA[0] not in models.classes:
+        if tokensA[0] not in self.classes:
             print("** class doesn't exist **")
             return
         else:
@@ -112,8 +127,8 @@ class HBNBCommand(cmd.Cmd):
                     # listI.append(dic[key])
                     representation_Class = str(dic[key])
                     listI.append(representation_Class)
-            if listI:
-                print(listI)
+            # if listI:
+            print(listI)
 
     def do_update(self, argument):
         """Updates an instance based on the class name and id """
@@ -130,10 +145,10 @@ class HBNBCommand(cmd.Cmd):
         elif len(tokensU) == 3:
             print("** value missing **")
             return
-        elif tokensU[0] not in models.classes:
+        elif tokensU[0] not in self.classes:
             print("** class doesn't exist **")
             return
-        keyI = tokensU[0]+"."+tokensU[1]
+        keyI = tokensU[0] + "." + tokensU[1]
         dicI = models.storage.all()
         try:
             instanceU = dicI[keyI]
@@ -146,7 +161,7 @@ class HBNBCommand(cmd.Cmd):
         except AttributeError:
             pass
         setattr(instanceU, tokensU[2], tokensU[3])
-        models.storage.save
+        models.storage.save()
 
 
 if __name__ == '__main__':
