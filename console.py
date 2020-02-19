@@ -84,9 +84,10 @@ class HBNBCommand(cmd.Cmd):
             key = tokensD[0] + '.' + tokensD[1]
             if key in dic:
                 del dic[key]
+                models.storage.save()
             else:
                 print("** no instance found **")
-            models.storage.save()
+
             # for i in dic.values():
             #     if i.__class__.__name__ == tokensD[0] and i.id == tokensD[1]:
             #         del i
@@ -143,7 +144,7 @@ class HBNBCommand(cmd.Cmd):
         elif tokensU[0] not in models.classes:
             print("** class doesn't exist **")
             return
-        keyI = tokensU[0]+"."+tokensU[1]
+        keyI = tokensU[0] + "." + tokensU[1]
         dicI = models.storage.all()
         try:
             instanceU = dicI[keyI]
