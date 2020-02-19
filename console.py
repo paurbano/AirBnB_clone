@@ -3,8 +3,16 @@
 Module Console
 """
 import cmd
-import models
 import shlex
+import sys
+import models
+from models.base_model import BaseModel
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
@@ -28,7 +36,9 @@ class HBNBCommand(cmd.Cmd):
         """Creates an instance of BaseModel"""
         if argument:
             if argument in models.classes:
-                instance = models.base_model.BaseModel()
+                # instance = models.base_model.BaseModel()
+                get_class = getattr(sys.modules[__name__], argument)
+                instance = get_class()
                 print(instance.id)
                 models.storage.save()
             else:
