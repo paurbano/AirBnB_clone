@@ -95,9 +95,9 @@ class HBNBCommand(cmd.Cmd):
             for key in dic:
                 representation_Class = str(dic[key])
                 listI.append(representation_Class)
-            if listI:
-                print(listI)
-                return
+            # if listI:
+            print(listI)
+            return
 
         if tokensA[0] not in models.classes:
             print("** class doesn't exist **")
@@ -112,8 +112,8 @@ class HBNBCommand(cmd.Cmd):
                     # listI.append(dic[key])
                     representation_Class = str(dic[key])
                     listI.append(representation_Class)
-            if listI:
-                print(listI)
+            # if listI:
+            print(listI)
 
     def do_update(self, argument):
         """Updates an instance based on the class name and id """
@@ -146,7 +146,7 @@ class HBNBCommand(cmd.Cmd):
         except AttributeError:
             pass
         setattr(instanceU, tokensU[2], tokensU[3])
-        models.storage.save
+        models.storage.save()
 
 
 if __name__ == '__main__':
