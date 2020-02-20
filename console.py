@@ -163,21 +163,38 @@ class HBNBCommand(cmd.Cmd):
         setattr(instanceU, tokensU[2], tokensU[3])
         models.storage.save()
 
-    # def precmd(self, argument):
-    #     """ executed just before the command line line is interpreted """
-    #     if argument:
-    #         line = ""
-    #         tokensadv = argument.split('.', 1)
-    #         if tokensadv[1] == "all":
-    #             cmdadv = tokensadv[1].split('()')
-    #             line = cmdadv[0] + " " + tokensadv[0]
-    #         if ("show" in tokensadv[1]) or ("destroy" in tokensadv[1]):
-    #             cmdadv = tokensadv[1].split("(\"")
-    #             line = cmdadv[0] + " " + tokensadv[0]
-    #             cmdadv = cmdadv[1].split("\")")
-    #             line = line + " " + cmdadv[0]
-    #         return line
-    #     pass
+    def do_count(self, argument):
+        """  retrieve the number of instances of a class """
+        tokensA = shlex.split(argument)
+        dic = models.storage.all()
+        num_instances = 0
+        if tokensA[0] not in self.classes:
+            print("** class doesn't exist **")
+            return
+        else:
+            for key in dic:
+                className = key.split('.')
+                if className[0] == tokensA[0]:
+                    num_instances += 1
+
+            print(num_instances)
+
+    def precmd(self, argument):
+        """ executed just before the command line line is interpreted """
+        args = argument.split('.', 1)
+        if len(args) == 2:
+            _class = args[0]
+            args = args[1].split('(', 1)
+            command = args[0]
+            if len(args) == 2:
+                args = args[1].split(')', 1)
+                if len(args) == 2:
+                    _id = args[0]
+                    other_arguments = args[1]
+            line = command + " " + _class + " " + _id + " " + other_arguments
+            return line
+        else:
+            return argument
 
 
 if __name__ == '__main__':
