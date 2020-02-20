@@ -163,21 +163,21 @@ class HBNBCommand(cmd.Cmd):
         setattr(instanceU, tokensU[2], tokensU[3])
         models.storage.save()
 
-    def precmd(self, argument):
-        """ executed just before the command line line is interpreted """
-        if argument:
-            line = ""
-            tokensadv = argument.split('.', 1)
-            if tokensadv[1] == "all":
-                cmdadv = tokensadv[1].split('()')
-                line = cmdadv[0] + " " + tokensadv[0]
-            if ("show" in tokensadv[1]) or ("destroy" in tokensadv[1]):
-                cmdadv = tokensadv[1].split("(\"")
-                line = cmdadv[0] + " " + tokensadv[0]
-                cmdadv = cmdadv[1].split("\")")
-                line = line + " " + cmdadv[0]
-            return line
-        pass
+    # def precmd(self, argument):
+    #     """ executed just before the command line line is interpreted """
+    #     if argument:
+    #         line = ""
+    #         tokensadv = argument.split('.', 1)
+    #         if tokensadv[1] == "all":
+    #             cmdadv = tokensadv[1].split('()')
+    #             line = cmdadv[0] + " " + tokensadv[0]
+    #         if ("show" in tokensadv[1]) or ("destroy" in tokensadv[1]):
+    #             cmdadv = tokensadv[1].split("(\"")
+    #             line = cmdadv[0] + " " + tokensadv[0]
+    #             cmdadv = cmdadv[1].split("\")")
+    #             line = line + " " + cmdadv[0]
+    #         return line
+    #     pass
 
 
 if __name__ == '__main__':
