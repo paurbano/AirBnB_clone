@@ -56,6 +56,7 @@ But also in non-interactive mode: (like the Shell project in C)
 * show - show an object (based on id)
 * destroy - destroy an object
 * all - show all objects, of one type or all types
+* update - Updates an instance based on the class name and id
 * quit/EOF - quit the console
 * help - see descriptions of commands
 
@@ -65,22 +66,39 @@ To start console type in shell
     (hbnb) 
 
 ## Create
-To create an object use format "create <ClassName>" ex:(hbnb) create BaseModel
+To create an object use format "create <ClassName>" ex:
+
+	(hbnb) create BaseModel
 
 ## Show
-To show an instance based on the class name and id. Ex: (hbnb) show BaseModel 1234-1234-1234.
+To show an instance based on the class name and id. Ex: 
+
+	(hbnb) show BaseModel 1234-1234-1234.
 
 ## Destroy
-To Delete an instance of an object use "destroy <ClassName> id". Ex: (hbnb) destroy BaseModel 1234-1234-1234.
+To Delete an instance of an object use "destroy <ClassName> id". Ex: 
+
+	(hbnb) destroy BaseModel 1234-1234-1234.
 
 ## All
-all or all <class name> Ex: (hbnb) all or all State
+all or all <class name> Ex: 
+
+	(hbnb) all or all State
+
+## Update
+Updates an instance based on the class name and id:
+
+	(hbnb) update BaseModel 1234-1234-1234 email "aibnb@holbertonschool.com"
 
 ## Quit
 quit or EOF
 
 ## Help
-help or help <command> Ex: (hbnb) help or help quit
+help or help <command> Ex: 
+
+	(hbnb) help or help quit
+	 Defines quit option
+	(hbnb) 
 
 # Supported classes:
 * BaseModel
